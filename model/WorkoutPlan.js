@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {format} from 'date-fns'
 
 const WorkoutPlan = mongoose.Schema({
     user:{
@@ -31,8 +32,8 @@ const WorkoutPlan = mongoose.Schema({
         required: true
       },      
     schedule:{
-        type:Date,
-        default:Date.now()
+        type:String,
+        default:format(Date.now(), 'dd/MM/yyyy')
     },
     comments:{
         type:[String],
@@ -40,7 +41,7 @@ const WorkoutPlan = mongoose.Schema({
     },
     status:{
         type: String,
-        enum: ['active', 'pending'],
+        enum: ['complete', 'pending'],
         required:true
     }
 })
