@@ -5,13 +5,11 @@ import User from '../model/User.js'
 
 export async function Login (req, res) {
     try {
-        
         const {email, password} = req.body;
         const user = await User.findOne({email: email});
         if(!user){
             return res.status(404).json("not found");
         }
-        console.log(await bcrypt.compare(password, user.password))
         if(!await bcrypt.compare(password, user.password)) return res.status(401).json("invalid password");
         const token = jwt.sign({
             email: email,
